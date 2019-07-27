@@ -1,0 +1,86 @@
+
+:host {
+	width:300px;
+	height: 300px;
+}
+:host * {
+	box-sizing: border-box;
+}
+
+#card {
+	background-color: transparent;
+	width: 100%;
+	height: 100%;
+	perspective: 1000px; /* Remove this if you don't want the 3D effect */
+	position: relative;
+	transition: height 0.2s;
+}
+
+/* Each side of the the card */
+.card-face {
+	color: #333333;
+	background: rgb(247, 247, 247);
+	border: 3px solid var(--accent, rgb(255, 212, 45));
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+	transition: transform 0.5s ease-in-out;
+	overflow: hidden;
+	padding-bottom: 32px;
+
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	backface-visibility: hidden;
+
+	font-family: 'Poppins', sans-serif;
+}
+
+/* Style the flip button */
+.flip-button {
+	position:absolute;
+	width: 80px;
+	height: 80px;
+	right: -40px;
+	bottom: -40px;
+	cursor: pointer;
+	border: 4px solid var(--accent, rgb(255, 212, 45));
+	background: var(--accent, rgb(255, 212, 45));
+	border-radius: 50%;
+}
+.flip-button-icon {
+	display:inline-block;
+	position: relative;
+	top: -14px;
+	left: -14px;
+	width:25px;
+	height:25px;
+
+	background-repeat: no-repeat;
+	background-size: contain;
+	fill:  #FFF;
+}
+
+/* Set the rotation for each side based on face-down attr */
+:host([face-down]) section#front {
+	transform: rotateY(180deg);
+}
+:host([face-down]) section#back {
+	transform: rotateY(0deg);
+}
+
+/* Set the card back to face down */
+section#back {
+	transform: rotateY(180deg);
+}
+
+.category-banner {
+	border-radius: 10px 10px 0 0;
+	transform: translateX(-2px);
+	width: calc(100% + 4px);
+	background-color: #000;
+	color: #EEE;
+	font-family: 'Poppins', sans-serif;
+	font-weight: 400;
+	font-size: 0.75rem;
+	padding: 4px 8px;
+}

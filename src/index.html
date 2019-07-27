@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Stencil Component Starter</title>
+  <script type="module" src="/build/code-it-note.esm.js"></script>
+	<script nomodule src="/build/code-it-note.js"></script>
+	<script nomodule src="/build/code-it-title.js"> </script>
+	<style>
+		.title-icon {
+			width: 1em;
+			height: 1em;
+			line-height: 1;
+		}
+
+		h1 {
+			margin-left: 0.5rem;
+			line-height: 1;
+			font-size: 2rem;
+		}
+
+		code-it-note {
+			display:block;
+		}
+	</style>
+</head>
+<body>
+  <code-it-note banner-text="JavaScript">
+		<section slot="front-content">
+			<code-it-title text="array.filter()" icon-name="funnel" ></code-it-title>
+			<ol>
+					<li>Takes an array</li>
+					<li>A callback function filters the array</li>
+					<li>Filter is applied to each array item</li>
+					<li>If the value matches the filter (truthy), it's added to a new array</li>
+					<li>If it doesn't match (falsy), ignore it</li>
+					<li>Returns a new array</li>
+			</ol>
+		</section>
+		<section slot="back-content">
+			<code-it-title text="array.filter()" icon-name="funnel" ></code-it-title>
+			<p>Back content</p>
+		</section>
+	</code-it-note>
+
+</body>
+</html>
