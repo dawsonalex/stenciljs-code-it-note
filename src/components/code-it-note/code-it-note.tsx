@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core';
+import { Component, Prop, h, Element } from '@stencil/core';
 
 @Component({
   tag: 'code-it-note',
@@ -7,6 +7,8 @@ import { Component, Prop, h } from '@stencil/core';
 })
 export class CodeItNote {
 	
+	@Element() host: HTMLElement;
+
 	/**
 	 * True if the element is face down, otherwise false.
 	 * @type {boolean}
@@ -24,6 +26,14 @@ export class CodeItNote {
 	 * @memberof CodeItNote
 	 */
 	@Prop() bannerText: string;
+
+	componentDidLoad() {
+		this.updateCardHeight();
+	}
+
+	componentWillUpdate() {
+		this.updateCardHeight();
+	}
 
   render() {
     return( 
@@ -55,6 +65,25 @@ export class CodeItNote {
 				</svg>
 			</main>
 		)
+	}
+
+	updateCardHeight(): void {
+
+		const card: HTMLElement = this.host.shadowRoot.querySelector('#card');
+		const frontSide: HTMLElement = this.host.shadowRoot.querySelector('#front');
+		const backSide: HTMLElement = this.host.shadowRoot.querySelector('#back');
+		
+		const frontSideHeight = frontSide.clientHeight;
+		const backSideHeight = backSide.clientHeight;
+
+		// Set the shortest side height equal to the tallest.
+		if (frontSideHeight > backSideHeight) {
+			backSide.style.height = frontSideHeight.toString() + 'px';
+			card.style.height = frontSideHeight.toString()+ 'px';
+		} else {
+			frontSide.style.height = backSideHeight.toString()+ 'px';
+			card.style.height = backSideHeight.toString()+ 'px';
+		}
 	}
 
 	getBanner() {
