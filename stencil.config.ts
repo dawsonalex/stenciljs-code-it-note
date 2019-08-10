@@ -1,7 +1,11 @@
 import { Config } from '@stencil/core';
 
 export const config: Config = {
-  namespace: 'code-it-note',
+	namespace: 'code-it-note',
+	devServer: {
+		reloadStrategy: 'pageReload',
+		openBrowser: false
+	},
   outputTargets: [
     {
       type: 'dist',
