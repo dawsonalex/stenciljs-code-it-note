@@ -10,6 +10,13 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Quicksand:400,700&display=swap" rel="stylesheet"> 
 	<style>
+		html, body {
+			width: 100%;
+			height: 100%;
+			padding: 0;
+			margin: 0;
+		}
+
 		.title-icon {
 			width: 1em;
 			height: 1em;
@@ -22,37 +29,106 @@
 			font-size: 2rem;
 		}
 
-		ol {
-			font-family: 'Quicksand', sans-serif;
-		}
-
 		code-it-note {
 			display:block;
+			font-family: 'Quicksand', sans-serif;
+			margin: 2rem;
 		}
 
 		code-it-title {
 			font-family: 'Quicksand', sans-serif;
 		}
+
+		main {
+			display: flex;
+			height: 100%;
+			width:100%;
+			justify-content: center;
+			align-items: center;
+		} 
+
+		code-it-note > .custom-content {
+			display:flex;
+			height: 200px;
+			justify-content: center;
+			align-items: center;
+
+
+			font-size: 2rem;
+			font-weight: 700;
+			text-align: center;
+		}
+
+		code-it-note.entirely-custom {
+			--front-background: pink;
+			--back-background: grey;
+			--accent: none;
+		}
+
+		.explain-list {
+			padding-left: 20px;
+		}
+
+		.explain-list li {
+			padding-left: 15px;
+		}
+
+		.example-list {
+			list-style-type: none;
+			padding: 0;
+		}
+
+		.example-list code {
+			background: #000;
+			color: #DEDEDE;
+
+		}
+
+
 	</style>
 </head>
 <body>
-  <code-it-note banner-text="JavaScript">
-		<section slot="front-content">
-			<code-it-title text="array.filter()" icon-name="funnel" ></code-it-title>
-			<ol>
-					<li>Takes an array</li>
-					<li>A callback function filters the array</li>
-					<li>Filter is applied to each array item</li>
-					<li>If the value matches the filter (truthy), it's added to a new array</li>
-					<li>If it doesn't match (falsy), ignore it</li>
-					<li>Returns a new array</li>
-			</ol>
-		</section>
-		<section slot="back-content">
-			<code-it-title text="array.filter()" icon-name="funnel" ></code-it-title>
-			<p>Back content</p>
-		</section>
-	</code-it-note>
+	<main>
+		<code-it-note banner-text="JavaScript">
+			<span class="custom-content" slot="front-content">
+				What is JavaScript?
+			</span>
+			<span class="custom-content answer" slot="back-content">
+				JavaScript is a programming language.
+			</span>
+		</code-it-note>
 
+		<code-it-note class="entirely-custom" face-down>
+			<h1 slot="front-content">Entirely Custom Content!</h1>
+			<h1 slot="back-content">This note looks nothing like the rest!</h1>
+		</code-it-note>
+
+		<code-it-note banner-text="JavaScript">
+			<section slot="front-content">
+				<code-it-title text="array.filter()" icon-name="funnel" ></code-it-title>
+				<ol class="explain-list">
+						<li>Takes an array</li>
+						<li>A callback function filters the array</li>
+						<li>Filter is applied to each array item</li>
+						<li>If the value matches the filter (truthy), it's added to a new array</li>
+						<li>If it doesn't match (falsy), ignore it</li>
+						<li>Returns a new array</li>
+				</ol>
+			</section>
+
+			<section slot="back-content">
+				<code-it-title text="array.filter()" icon-name="funnel" ></code-it-title>
+				<ul class="example-list">
+					<li><code>var fruits = ['pear', 'banana', 'plum'];</code></li>
+					<li class="comment">Fruits contains an array with 3 strings</li>
+					<li><code>const result = fruits.filter(fruit => fruit.length &lt; 5); </code></li>
+					<li class="comment">Fruit represents each array item</li>
+					<li><code>console.log(result);</code></li>
+					<li class="comment">Values less than 5 characters are added to a new array and stored in result</li>
+					<li><code>// output: Array ['pear', 'plum']</code></li>
+				</ul>
+			</section>
+		</code-it-note>
+		</main>
 </body>
 </html>
