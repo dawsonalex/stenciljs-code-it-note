@@ -1,5 +1,5 @@
-:host {
-	text-align: center;
+:host * {
+	box-sizing: border-box;
 }
 
 ion-icon {
