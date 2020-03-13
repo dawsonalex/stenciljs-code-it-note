@@ -1,5 +1,8 @@
 
 :host {
+	/**
+	 * @prop --front-background: Front side background colour.
+	 */
 	--front-background: repeating-linear-gradient(
 		45deg,
 		#f9f9f9,
@@ -8,6 +11,9 @@
 		#f0eeee 20px
 	);
 
+	/**
+	 * @prop --back-background: Back side background colour.
+	 */
 	--back-background: repeating-linear-gradient(
 		315deg,
 		#f0eeee,
@@ -15,6 +21,13 @@
 		#f9f9f9 10px,
 		#f9f9f9 20px
 	);
+
+	/**
+	 * @prop --accent: The accent colour for both sides of the card.
+	 */
+	--accent: rgb(255, 212, 45);
+
+	display: block;
 }
 :host * {
 	box-sizing: border-box;
@@ -22,6 +35,7 @@
 
 ::slotted(*) {
 	font-family: inherit;
+	position: relative;
 }
 
 #card {
@@ -52,9 +66,12 @@
 
 	position: absolute;
 	width: 100%;
+	height: 100%;
 	backface-visibility: hidden;
 
 	font-family: inherit;
+	left: 0;
+	top: 0;
 }
 
 .card-content {
@@ -89,12 +106,19 @@
 	fill:  var(--flip-button-fill, transparent);
 }
 
+/* Set the icon svg to display:none so it's doesn't take space in the card. */
+#icon-svg {
+	display: none;
+}
+
 /* Set the rotation for each side based on face-down attr */
 :host([face-down]) section#front {
 	transform: rotateY(180deg);
+	position: absolute;
 }
 :host([face-down]) section#back {
 	transform: rotateY(0deg);
+	position: relative;
 }
 
 /* Style ordered lists unless the user specifies otherwise */
@@ -105,6 +129,11 @@
 /* Set the card back to face down */
 section#back {
 	transform: rotateY(180deg);
+	position: absolute;
+}
+
+section#front {
+	position: relative;
 }
 
 .category-banner {

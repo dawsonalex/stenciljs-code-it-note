@@ -30,9 +30,10 @@
 		}
 
 		code-it-note {
-			display:block;
+			/* display:block; */
 			font-family: 'Quicksand', sans-serif;
 			margin: 2rem;
+			width: 300px;
 		}
 
 		code-it-title {
@@ -45,11 +46,11 @@
 			width:100%;
 			justify-content: center;
 			align-items: center;
+			flex-wrap: wrap;
 		} 
 
 		code-it-note > .custom-content {
-			display:flex;
-			height: 200px;
+			display: flex;
 			justify-content: center;
 			align-items: center;
 
@@ -57,12 +58,23 @@
 			font-size: 2rem;
 			font-weight: 700;
 			text-align: center;
+			margin: 2rem;
 		}
 
 		code-it-note.entirely-custom {
 			--front-background: pink;
 			--back-background: grey;
 			--accent: none;
+		}
+
+		code-it-note:first-child {
+			margin-top: 1rem;
+		}
+
+		code-it-note:last-child {
+			margin-left: 1rem;
+			margin-bottom: 1rem;
+			margin-right: 1rem;
 		}
 
 		.explain-list {
@@ -100,7 +112,7 @@
 
 		<code-it-note class="entirely-custom" face-down>
 			<h1 slot="front-content">Entirely Custom Content!</h1>
-			<h1 slot="back-content">This note looks nothing like the rest!</h1>
+			<h1 slot="back-content">This note looks nothing like the rest! This note looks nothing like the rest! This note looks nothing like the rest! This note looks nothing like the rest!</h1>
 		</code-it-note>
 
 		<code-it-note banner-text="JavaScript">
@@ -129,6 +141,6 @@
 				</ul>
 			</section>
 		</code-it-note>
-		</main>
+		</main> 
 </body>
 </html>

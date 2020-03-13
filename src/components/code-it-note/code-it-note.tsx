@@ -1,4 +1,4 @@
-import { Component, Prop, h, Element } from '@stencil/core';
+import { Component, Prop, h, Element, Build } from '@stencil/core';
 
 @Component({
   tag: 'code-it-note',
@@ -44,13 +44,17 @@ export class CodeItNote {
 	 * @memberof CodeItNote
 	 */
 	componentDidLoad() {
+		// Don't do this if we aren't in browser.
+		// The prerenderer won't like it.
+		if (!Build.isBrowser) {
+			return;
+		}
 		/*
-		 * Update card height and set the slot mutation
-	   * observer after first render because otherwise 
-	   * we won't have a height to work with.
-		 */
+		* Update card height and set the slot mutation
+		* observer after first render because otherwise 
+		* we won't have a height to work with.
+		*/
 		this.updateCardHeight();
-		this.attachSlotObserver();
 	}
 
 	/**
@@ -67,29 +71,25 @@ export class CodeItNote {
 			<div id="card">
 				<section id="front" class="card-face">
 					{this.getBanner()}
-					<section class="card-content">
 						<slot name="front-content"></slot>
 						<button class="flip-button" onClick={this.flip.bind(this)}>
 							<svg class="flip-button-icon">
 								<use xlinkHref="#arrow-icon"/>
 							</svg>
 						</button>
-					</section>
 				</section>
 
 				<section id="back" class="card-face">
 					{this.getBanner()}
-					<section class="card-content">
 						<slot name="back-content"></slot>
 						<button class="flip-button" onClick={this.flip.bind(this)}>
 							<svg class="flip-button-icon">
 								<use xlinkHref="#arrow-icon"/>
 							</svg>
 						</button>
-					</section>
 				</section>
 
-				<svg xmlns="http://www.w3.org/2000/svg">
+				<svg id="icon-svg" xmlns="http://www.w3.org/2000/svg">
 					<symbol id="arrow-icon" viewBox="0 0 33 33">
 						<path stroke="#000" stroke-width="3" x="0" y="0" d="M8.192 0C4.638 6.439 4.039 16.259 18 15.932V8l12 12-12 12v-7.762C1.282 24.674-.58 9.481 8.192 0z"/>
 					</symbol>
@@ -111,8 +111,8 @@ export class CodeItNote {
 		const frontSide: HTMLElement = this.host.shadowRoot.querySelector('#front');
 		const backSide: HTMLElement = this.host.shadowRoot.querySelector('#back');
 		
-		const frontSideHeight = frontSide.clientHeight;
-		const backSideHeight = backSide.clientHeight;
+		const frontSideHeight = frontSide.scrollHeight;
+		const backSideHeight = backSide.scrollHeight;
 
 		// Set the shortest face height equal to the tallest.
 		if (frontSideHeight > backSideHeight) {
@@ -131,7 +131,7 @@ export class CodeItNote {
 	 * @memberof CodeItNote
 	 */
 	attachSlotObserver(): void {
-		const config: MutationObserverInit = {childList: true, subtree: true, characterData: true, attributes:true};
+		const config: MutationObserverInit = {childList: true, subtree: true, characterData: true};
 
 		this.slotObserver = new MutationObserver(this.updateCardHeight.bind(this));
 		this.slotObserver.observe(this.host, config);
