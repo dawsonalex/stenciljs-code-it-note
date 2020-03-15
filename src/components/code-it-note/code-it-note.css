@@ -114,11 +114,11 @@
 /* Set the rotation for each side based on face-down attr */
 :host([face-down]) section#front {
 	transform: rotateY(180deg);
-	position: absolute;
+	/* position: absolute; */
 }
 :host([face-down]) section#back {
 	transform: rotateY(0deg);
-	position: relative;
+	/* position: relative; */
 }
 
 /* Style ordered lists unless the user specifies otherwise */
@@ -129,11 +129,11 @@
 /* Set the card back to face down */
 section#back {
 	transform: rotateY(180deg);
-	position: absolute;
+	/* position: absolute; */
 }
 
 section#front {
-	position: relative;
+	/* position: relative; */
 }
 
 .category-banner {

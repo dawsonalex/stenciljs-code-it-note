@@ -111,8 +111,8 @@
 		</code-it-note>
 
 		<code-it-note class="entirely-custom" face-down>
-			<h1 slot="front-content">Entirely Custom Content!</h1>
-			<h1 slot="back-content">This note looks nothing like the rest! This note looks nothing like the rest! This note looks nothing like the rest! This note looks nothing like the rest!</h1>
+			<h1 slot="front-content" id="front2">Entirely Custom Content!</h1>
+			<h1 slot="back-content" id="back2">This note looks nothing like the rest! This note looks nothing like the rest! This note looks nothing like the rest! This note looks nothing like the rest!</h1>
 		</code-it-note>
 
 		<code-it-note banner-text="JavaScript">
@@ -141,6 +141,18 @@
 				</ul>
 			</section>
 		</code-it-note>
+		<button onclick="editContent()">Edit Content</button>
 		</main> 
+
+		<script>
+			function editContent() {
+
+				console.log(`front: ${document.getElementById('front2').scrollHeight}, back: ${document.getElementById('back2').scrollHeight}`);
+
+				document.getElementById('back2').innerText = 'oioi';
+
+				console.log(`front: ${document.getElementById('front2').scrollHeight}, back: ${document.getElementById('back2').scrollHeight}`);
+			}
+		</script>
 </body>
 </html>

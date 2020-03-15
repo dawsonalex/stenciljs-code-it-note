@@ -55,6 +55,7 @@ export class CodeItNote {
 		* we won't have a height to work with.
 		*/
 		this.updateCardHeight();
+		this.attachSlotObserver();
 	}
 
 	/**
@@ -66,27 +67,27 @@ export class CodeItNote {
 		this.slotObserver.disconnect();
 	}
 
-  render() {
-    return( 
+	render() {
+		return( 
 			<div id="card">
 				<section id="front" class="card-face">
 					{this.getBanner()}
-						<slot name="front-content"></slot>
-						<button class="flip-button" onClick={this.flip.bind(this)}>
-							<svg class="flip-button-icon">
-								<use xlinkHref="#arrow-icon"/>
-							</svg>
-						</button>
+					<slot name="front-content"></slot>
+					<button class="flip-button" onClick={this.flip.bind(this)}>
+						<svg class="flip-button-icon">
+							<use xlinkHref="#arrow-icon"/>
+						</svg>
+					</button>
 				</section>
 
 				<section id="back" class="card-face">
 					{this.getBanner()}
-						<slot name="back-content"></slot>
-						<button class="flip-button" onClick={this.flip.bind(this)}>
-							<svg class="flip-button-icon">
-								<use xlinkHref="#arrow-icon"/>
-							</svg>
-						</button>
+					<slot name="back-content"></slot>
+					<button class="flip-button" onClick={this.flip.bind(this)}>
+						<svg class="flip-button-icon">
+							<use xlinkHref="#arrow-icon"/>
+						</svg>
+					</button>
 				</section>
 
 				<svg id="icon-svg" xmlns="http://www.w3.org/2000/svg">
@@ -110,17 +111,25 @@ export class CodeItNote {
 		const card: HTMLElement = this.host.shadowRoot.querySelector('#card');
 		const frontSide: HTMLElement = this.host.shadowRoot.querySelector('#front');
 		const backSide: HTMLElement = this.host.shadowRoot.querySelector('#back');
-		
+
 		const frontSideHeight = frontSide.scrollHeight;
 		const backSideHeight = backSide.scrollHeight;
+		console.log('front: ', frontSideHeight);
+		console.log('back: ', backSideHeight);
+
+		card.style.height = 'auto';
 
 		// Set the shortest face height equal to the tallest.
 		if (frontSideHeight > backSideHeight) {
+			frontSide.style.height = frontSideHeight.toString() + 'px';
 			backSide.style.height = frontSideHeight.toString() + 'px';
 			card.style.height = frontSideHeight.toString()+ 'px';
-		} else {
+		} else if (backSideHeight > frontSideHeight) {
+			backSide.style.height = backSideHeight.toString() + 'px';
 			frontSide.style.height = backSideHeight.toString()+ 'px';
 			card.style.height = backSideHeight.toString()+ 'px';
+		} else {
+			console.log('else');
 		}
 	}
 
@@ -132,7 +141,6 @@ export class CodeItNote {
 	 */
 	attachSlotObserver(): void {
 		const config: MutationObserverInit = {childList: true, subtree: true, characterData: true};
-
 		this.slotObserver = new MutationObserver(this.updateCardHeight.bind(this));
 		this.slotObserver.observe(this.host, config);
 	}
